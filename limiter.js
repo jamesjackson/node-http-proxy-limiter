@@ -64,7 +64,7 @@ httpProxy.createServer(function(req, res, proxy) {
 
                 if (!result && (count > limit)) {
 
-                    console.log("Debug: TTL expired, hit race condition and over limit, reject away...");
+                    //console.log("Debug: TTL expired, hit race condition and over limit, reject away...");
                     res.writeHead(429, headers_stat);
                     res.end();
                     return;
@@ -72,7 +72,7 @@ httpProxy.createServer(function(req, res, proxy) {
                 }
 
                 if (result || (!result && (count <= limit))) {
-                    console.log("Debug: TTL expired, attempt to reset and proxy on...");
+                    //console.log("Debug: TTL expired, attempt to reset and proxy on...");
 
                     var _writeHead = res.writeHead;
                     res.writeHead = function(statusCode, headers) {
@@ -99,7 +99,7 @@ httpProxy.createServer(function(req, res, proxy) {
 
             if (count <= limit) {
 
-                console.log("Debug: TTL not expired, count below limit, proxy on...");
+                //console.log("Debug: TTL not expired, count below limit, proxy on...");
 
                 var _writeHead = res.writeHead;
                 res.writeHead = function(statusCode, headers) {
@@ -118,7 +118,7 @@ httpProxy.createServer(function(req, res, proxy) {
 
             } else {
 
-                console.log("Debug: TTL not expired, count above limit, reject away...");
+                //console.log("Debug: TTL not expired, count above limit, reject away...");
                 res.writeHead(429, headers_stat);
                 res.end();
             }
