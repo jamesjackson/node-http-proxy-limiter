@@ -17,6 +17,32 @@ Usage
 Example
 ---
 
+Request within limits:
+
+	curl -v  http://localhost:4000/test?AccessKey=12345
+ 
+	< HTTP/1.1 200 OK
+	< content-type: text/plain
+	< date: Tue, 18 Sep 2012 01:49:28 GMT
+	< connection: close
+	< transfer-encoding: chunked
+	< X-RateLimit-Limit: 10
+	< X-RateLimit-Remaining: 2
+	< X-RateLimit-Reset: 1347932978
+
+
+
+Request outside limits:
+
+	curl -v  http://localhost:4000/test?AccessKey=12345
+
+	< HTTP/1.1 429 Too Many Requests
+	< X-RateLimit-Limit: 10
+	< X-RateLimit-Remaining: 0
+	< X-RateLimit-Reset: 1347932978
+	< Date: Tue, 18 Sep 2012 01:49:31 GMT
+	< Connection: keep-alive
+	< Transfer-Encoding: chunked
 
 
 
