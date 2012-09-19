@@ -3,7 +3,10 @@ var httpProxy = require('http-proxy'),
     redis = require('redis'),
     time_window = 30, // <-- SET TIME WINDOW
     limit = 10, // <-- SET LIMIT PER TIME WINDOW
-    redisClient = redis.createClient(6379, 'localhost');
+    local_port = 4000, // <-- SET PROXY SERVER PORT 
+    remote_host = 'localhost', // <-- SET REMOTE SERVER HOST
+    remote_port = 3000, // <-- SET REMOTE SERVER PORT
+    redisClient = redis.createClient(6379, 'localhost'); // <-- SET REDIS SERVER
 
 
 redisClient.on("error", function(err) {
@@ -84,8 +87,8 @@ httpProxy.createServer(function(req, res, proxy) {
                     }
 
                     proxy.proxyRequest(req, res, {
-                        port: 3000,
-                        host: 'localhost',
+                        port: remote_port,
+                        host: remote_host,
                         buffer: buffer
                     });
 
@@ -111,8 +114,8 @@ httpProxy.createServer(function(req, res, proxy) {
                 }
 
                 proxy.proxyRequest(req, res, {
-                    port: 3000,
-                    host: 'localhost',
+                    port: remote_port,
+                    host: remote_host,
                     buffer: buffer
                 });
 
@@ -127,4 +130,4 @@ httpProxy.createServer(function(req, res, proxy) {
 
     });
 
-}).listen(4000);
+}).listen(local_port);
