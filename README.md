@@ -8,6 +8,8 @@ It allows basic API rate limiting based on a key contained in the request ex. UR
 Usage
 ---
 
+	git clone https://github.com/jamesjackson/node-http-proxy-limiter.git
+
 	npm install http-proxy
 	npm install redis
 
